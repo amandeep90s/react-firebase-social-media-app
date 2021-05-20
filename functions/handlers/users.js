@@ -3,7 +3,11 @@ const config = require("../util/config");
 const firebase = require("firebase");
 require("firebase/auth");
 
-const { validateLoginData, validateSignupData } = require("../util/validators");
+const {
+    reducerUserDetails,
+    validateLoginData,
+    validateSignupData,
+} = require("../util/validators");
 
 /**
  * Initializing firebase app
@@ -107,7 +111,64 @@ exports.login = (req, res) => {
 };
 
 /**
- * Image uploading function
+ * Add user details function
+ */
+exports.addUserDetails = (req, res) => {
+    let userDetails = reducerUserDetails(req.body);
+
+    db.doc(`/users/${req.user.handle}`)
+        .update(userDetails)
+        .then(() => {
+            return res.json({ message: "Details added successfully" });
+        })
+        .catch((error) => {
+            console.error(error);
+            return res.status(500).json({ error: error.code });
+        });
+};
+
+/**
+ * Get user details function
+ */
+exports.getUserDetails = (req, res) => {
+    let userData = {};
+    db.doc(`/users/${req.user.handle}`)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                userData.user = doc.data();
+                return db
+                    .collection("screams")
+                    .where("userHandle", "==", req.user.handle)
+                    .orderBy("createdAt", "desc")
+                    .get();
+            } else {
+                return res.status(404).json({ error: "User not found" });
+            }
+        })
+        .then((data) => {
+            userData.screams = [];
+            data.forEach((doc) => {
+                userData.screams.push({
+                    body: doc.data().body,
+                    createdAt: doc.data().createdAt,
+                    userHandle: doc.data().userHandle,
+                    userImage: doc.data().userImage,
+                    likeCount: doc.data().likeCount,
+                    commentCount: doc.data().commentCount,
+                    screamId: doc.id,
+                });
+            });
+            return res.json(userData);
+        })
+        .catch((err) => {
+            console.error(err);
+            return res.status(500).json({ error: err.code });
+        });
+};
+
+/**
+ * Upload a profile image for user function
  */
 exports.uploadImage = (req, res) => {
     const BusBoy = require("busboy");
