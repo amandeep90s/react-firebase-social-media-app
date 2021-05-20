@@ -5,6 +5,7 @@ const FBAuth = require("./util/fbAuth");
 const { createScream, getAllScreams } = require("./handlers/screams");
 const {
     addUserDetails,
+    getAuthenticatedUser,
     getUserDetails,
     login,
     signup,
@@ -20,6 +21,7 @@ app.post("/signup", signup);
 app.post("/login", login);
 app.post("/user/image", FBAuth, uploadImage);
 app.post("/user", FBAuth, addUserDetails);
-app.get("/user", FBAuth, getUserDetails);
+app.get("/user", FBAuth, getAuthenticatedUser);
+app.get("/user/:handle", getUserDetails);
 
 exports.api = functions.region("asia-south1").https.onRequest(app);

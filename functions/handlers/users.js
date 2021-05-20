@@ -128,18 +128,18 @@ exports.addUserDetails = (req, res) => {
 };
 
 /**
- * Get user details function
+ * Get any user details function
  */
 exports.getUserDetails = (req, res) => {
     let userData = {};
-    db.doc(`/users/${req.user.handle}`)
+    db.doc(`/users/${req.params.handle}`)
         .get()
         .then((doc) => {
             if (doc.exists) {
                 userData.user = doc.data();
                 return db
                     .collection("screams")
-                    .where("userHandle", "==", req.user.handle)
+                    .where("userHandle", "==", req.params.handle)
                     .orderBy("createdAt", "desc")
                     .get();
             } else {
@@ -157,6 +157,55 @@ exports.getUserDetails = (req, res) => {
                     likeCount: doc.data().likeCount,
                     commentCount: doc.data().commentCount,
                     screamId: doc.id,
+                });
+            });
+            return res.json(userData);
+        })
+        .catch((err) => {
+            console.error(err);
+            return res.status(500).json({ error: err.code });
+        });
+};
+
+/**
+ * Get authenticated user details function
+ */
+exports.getAuthenticatedUser = (req, res) => {
+    let userData = {};
+    db.doc(`/users/${req.user.handle}`)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                userData.credentials = doc.data();
+                return db
+                    .collection("likes")
+                    .where("userHandle", "==", req.user.handle)
+                    .get();
+            }
+        })
+        .then((data) => {
+            userData.likes = [];
+            data.forEach((doc) => {
+                userData.likes.push(doc.data());
+            });
+            return db
+                .collection("notifications")
+                .where("recipient", "==", req.user.handle)
+                .orderBy("createdAt", "desc")
+                .limit(10)
+                .get();
+        })
+        .then((data) => {
+            userData.notifications = [];
+            data.forEach((doc) => {
+                userData.notifications.push({
+                    recipient: doc.data().recipient,
+                    sender: doc.data().sender,
+                    createdAt: doc.data().createdAt,
+                    screamId: doc.data().screamId,
+                    type: doc.data().type,
+                    read: doc.data().read,
+                    notificationId: doc.id,
                 });
             });
             return res.json(userData);
