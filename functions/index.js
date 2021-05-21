@@ -5,8 +5,11 @@ const FBAuth = require("./util/fbAuth");
 const {
     createComment,
     createScream,
+    deleteScream,
     getAllScreams,
     getScream,
+    likeScream,
+    unlikeScream,
 } = require("./handlers/screams");
 
 const {
@@ -22,9 +25,9 @@ const {
 app.get("/screams", getAllScreams);
 app.post("/scream", FBAuth, createScream);
 app.get("/scream/:screamId", getScream);
-// TODO delete a scream
-// TODO like a scream
-// TODO unlike a scream
+app.delete("/scream/:screamId", FBAuth, deleteScream);
+app.get("/scream/:screamId/like", FBAuth, likeScream);
+app.get("/scream/:screamId/unlike", FBAuth, unlikeScream);
 app.post("/scream/:screamId/comment", FBAuth, createComment);
 
 // Users routes
