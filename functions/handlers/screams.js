@@ -163,6 +163,18 @@ exports.deleteScream = (req, res) => {
                 });
             });
         })
+        .then(async () => {
+            let screamNotifications = await db
+                .collection("notifications")
+                .where("screamId", "==", req.params.screamId)
+                .get();
+
+            return screamNotifications.then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    doc.ref.delete();
+                });
+            });
+        })
         .then(() => {
             return res.json({ message: "Scream deleted successfully" });
         })

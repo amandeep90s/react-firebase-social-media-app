@@ -52,4 +52,14 @@ const userDetails = {
             screamId: "3454dff234234t55345453234",
         },
     ],
+    notifications: [
+        {
+            recipient: "user",
+            sender: "sender name",
+            read: "true | false",
+            screamId: "3454dff234234t55345453234",
+            type: "like | comment",
+            createdAt: "2019-03-15T10:59:52.798Z",
+        },
+    ],
 };
