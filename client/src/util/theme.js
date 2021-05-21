@@ -13,6 +13,12 @@ const themeObject = {
             contrastText: "#fff",
         },
     },
+    anchor: {
+        color: "#00bcd4",
+        "&:hover": {
+            color: "#008394",
+        },
+    },
     typography: {
         useNextVariants: true,
     },
@@ -20,13 +26,13 @@ const themeObject = {
         textAlign: "center",
     },
     image: {
-        margin: "20px auto 20px auto",
+        margin: "1rem 0",
     },
     pageTitle: {
-        margin: "10px auto 10px auto",
+        margin: "0.7rem auto",
     },
     textField: {
-        margin: "10px auto 10px auto",
+        margin: "0.7rem auto",
     },
     button: {
         marginTop: 20,
