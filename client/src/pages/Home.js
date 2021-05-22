@@ -24,6 +24,8 @@ const Home = () => {
                 setScreams(res.data);
             })
             .catch((error) => console.log(error));
+
+        return () => setScreams([]);
     }, []);
 
     return (

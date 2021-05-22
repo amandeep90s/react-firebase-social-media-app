@@ -5,17 +5,17 @@ import PropTypes from "prop-types";
 
 // MUI Stuff
 import {
-    Button,
+    // Button,
     Card,
-    CardActionArea,
-    CardActions,
+    // CardActionArea,
+    // CardActions,
     CardContent,
     CardMedia,
     Typography,
     makeStyles,
 } from "@material-ui/core";
 // Icons
-import CommentIcon from "@material-ui/icons/Comment";
+// import CommentIcon from "@material-ui/icons/Comment";
 
 // Custom Style
 const useStyles = makeStyles({
@@ -37,10 +37,10 @@ const Scream = (props) => {
     const classes = useStyles();
     const {
         body,
-        commentCount,
+        // commentCount,
         createdAt,
-        likeCount,
-        screamId,
+        // likeCount,
+        // screamId,
         userHandle,
         userImage,
     } = props.scream;
