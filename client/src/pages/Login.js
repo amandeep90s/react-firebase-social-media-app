@@ -29,8 +29,9 @@ const Login = ({ history }) => {
 
         axios
             .post("/login", { email, password })
-            .then(() => {
+            .then((res) => {
                 setLoading(false);
+                localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
                 history.push("/");
             })
             .catch((error) => {
