@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
@@ -11,18 +11,18 @@ import store from "./redux/store";
 import { getUserData, logoutUser } from "./redux/actions/userActions";
 import { SET_AUTHENTICATED } from "./redux/types";
 
-// Components
-import Navbar from "./components/layout/Navbar";
-
 // Utilities
 import themeObject from "./util/theme";
 import AuthRoute from "./util/AuthRoute";
 
+// Components
+const Navbar = lazy(() => import("./components/layout/Navbar"));
+
 // Pages
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import User from "./pages/User";
+const Home = lazy(() => import("./pages/Home"));
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));
+const User = lazy(() => import("./pages/User"));
 
 // Auth Token
 const token = localStorage.getItem("FBIdToken");
@@ -42,34 +42,46 @@ const theme = createMuiTheme(themeObject);
 
 const App = () => {
     return (
-        <MuiThemeProvider theme={theme}>
-            <Provider store={store}>
-                <Router>
-                    <Navbar />
-                    <div className="container">
-                        <Switch>
-                            <Route exact path="/" component={Home} />
-                            <AuthRoute exact path="/login" component={Login} />
-                            <AuthRoute
-                                exact
-                                path="/signup"
-                                component={Signup}
-                            />
-                            <Route
-                                exact
-                                path="/users/:handle"
-                                component={User}
-                            />
-                            <Route
-                                exact
-                                path="/users/:handle/scream/:screamId"
-                                component={User}
-                            />
-                        </Switch>
-                    </div>
-                </Router>
-            </Provider>
-        </MuiThemeProvider>
+        <Suspense
+            fallback={
+                <h3 style={{ textAlign: "center", marginTop: "5rem" }}>
+                    Loading...
+                </h3>
+            }
+        >
+            <MuiThemeProvider theme={theme}>
+                <Provider store={store}>
+                    <Router>
+                        <Navbar />
+                        <div className="container">
+                            <Switch>
+                                <Route exact path="/" component={Home} />
+                                <AuthRoute
+                                    exact
+                                    path="/login"
+                                    component={Login}
+                                />
+                                <AuthRoute
+                                    exact
+                                    path="/signup"
+                                    component={Signup}
+                                />
+                                <Route
+                                    exact
+                                    path="/users/:handle"
+                                    component={User}
+                                />
+                                <Route
+                                    exact
+                                    path="/users/:handle/scream/:screamId"
+                                    component={User}
+                                />
+                            </Switch>
+                        </div>
+                    </Router>
+                </Provider>
+            </MuiThemeProvider>
+        </Suspense>
     );
 };
 
