@@ -4,6 +4,7 @@ import { Grid } from "@material-ui/core";
 
 // Component
 import Scream from "../components/scream/Scream";
+import Profile from "../components/profile/Profile";
 
 const Home = () => {
     const [screams, setScreams] = useState([]);
@@ -34,7 +35,7 @@ const Home = () => {
                 {recentScreamsMarkup}
             </Grid>
             <Grid item sm={4} xs={12}>
-                <p>Profile</p>
+                <Profile />
             </Grid>
         </Grid>
     );

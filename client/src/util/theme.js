@@ -16,6 +16,7 @@ const themeObject = {
     anchor: {
         color: "#00bcd4",
         "&:hover": {
+            textDecoration: "none",
             color: "#008394",
         },
     },

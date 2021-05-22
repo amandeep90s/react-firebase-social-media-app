@@ -73,7 +73,11 @@ export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios
         .post("/user/image", formData)
-        .then(() => dispatch(getUserData))
+        .then((res) => {
+            if (res.status === 200) {
+                dispatch(getUserData());
+            }
+        })
         .catch((error) => console.log(error));
 };
 
@@ -82,7 +86,11 @@ export const editUserDetails = (userDetails) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios
         .post("/user", userDetails)
-        .then(() => dispatch(getUserData()))
+        .then((res) => {
+            if (res.status === 200) {
+                dispatch(getUserData());
+            }
+        })
         .catch((error) => console.log(error));
 };
 
