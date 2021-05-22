@@ -15,7 +15,7 @@ const initialState = {
     loading: false,
 };
 
-const dataReducer = (state = initialState, action) => {
+export const dataReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOADING_DATA:
             return {
@@ -46,7 +46,7 @@ const dataReducer = (state = initialState, action) => {
                 ...state,
             };
         case DELETE_SCREAM:
-            index = states.screams.findIndex(
+            index = state.screams.findIndex(
                 (scream) => scream.screamId === action.payload
             );
             state.screams.splice(index, 1);
@@ -70,5 +70,3 @@ const dataReducer = (state = initialState, action) => {
             return state;
     }
 };
-
-export default dataReducer;
