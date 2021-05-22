@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import moment from "moment";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
 
 // MUI Stuff
@@ -34,6 +35,8 @@ const useStyles = makeStyles({
 });
 
 const Scream = (props) => {
+    dayjs.extend(relativeTime);
+
     const classes = useStyles();
     const {
         body,
@@ -63,7 +66,7 @@ const Scream = (props) => {
                     {userHandle}
                 </Typography>
                 <Typography variant="body1" color="textSecondary" component="p">
-                    {moment(createdAt).fromNow()}
+                    {dayjs(createdAt).fromNow()}
                 </Typography>
                 <Typography variant="body1" color="textSecondary" component="p">
                     {body}
