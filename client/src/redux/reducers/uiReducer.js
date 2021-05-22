@@ -7,7 +7,7 @@ import {
 
 const initialState = {
     loading: false,
-    errors: null,
+    errors: {},
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -15,7 +15,7 @@ export const uiReducer = (state = initialState, action) => {
         case SET_ERRORS:
             return { ...state, loading: false, errors: action.payload };
         case CLEAR_ERRORS:
-            return { ...state, loading: false, errors: null };
+            return { ...state, loading: false, errors: {} };
         case LOADING_UI:
             return { ...state, loading: true };
         case STOP_LOADING_UI:

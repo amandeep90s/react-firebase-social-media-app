@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import {
     Button,
     CircularProgress,
@@ -11,34 +11,27 @@ import {
 } from "@material-ui/core";
 import AppIcon from "../images/icon.png";
 import themeObject from "../util/theme";
+import { loginUser } from "../redux/actions/userActions";
 
 // Custom styles
 const useStyles = makeStyles(themeObject);
 
 const Login = ({ history }) => {
+    const {
+        UI: { loading, errors },
+    } = useSelector((state) => ({ ...state }));
+
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState({});
 
     const classes = useStyles();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setLoading(true);
-
-        axios
-            .post("/login", { email, password })
-            .then((res) => {
-                setLoading(false);
-                localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
-                history.push("/");
-            })
-            .catch((error) => {
-                setLoading(false);
-                console.log(error);
-                setErrors(error.response.data);
-            });
+        const userData = { email, password };
+        dispatch(loginUser(userData, history));
     };
 
     return (
