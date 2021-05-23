@@ -28,7 +28,7 @@ const User = lazy(() => import("./pages/User"));
 const token = localStorage.getItem("FBIdToken");
 if (token) {
     const decodedToken = jwtDecode(token);
-    if (decodedToken * 1000 < Date.now()) {
+    if (decodedToken.exp * 1000 < Date.now()) {
         store.dispatch(logoutUser());
         window.location.href = "/login";
     } else {
