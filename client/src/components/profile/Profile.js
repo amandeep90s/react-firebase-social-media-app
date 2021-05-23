@@ -33,6 +33,7 @@ const Profile = () => {
     const {
         user: {
             authenticated,
+            loading,
             credentials: {
                 handle,
                 createdAt,
@@ -42,7 +43,6 @@ const Profile = () => {
                 location,
             },
         },
-        UI: { loading },
     } = useSelector((state) => ({ ...state }));
 
     const dispatch = useDispatch();
