@@ -20,7 +20,7 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import EditIcon from "@material-ui/icons/Edit";
 import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
 import LinkIcon from "@material-ui/icons/Link";
-import RoomIcon from "@material-ui/icons/Room";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -105,7 +105,7 @@ const Profile = () => {
                         <hr />
                         {location && (
                             <>
-                                <RoomIcon color="primary" />{" "}
+                                <LocationOnIcon color="primary" />{" "}
                                 <span>{location}</span>
                                 <hr />
                             </>
