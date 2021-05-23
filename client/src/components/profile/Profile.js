@@ -18,7 +18,7 @@ import {
 // Icons
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import EditIcon from "@material-ui/icons/Edit";
-import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LinkIcon from "@material-ui/icons/Link";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
@@ -129,7 +129,7 @@ const Profile = () => {
                         </span>
                     </div>
                     <MyButton tip="Logout" onClick={handleLogout}>
-                        <KeyboardReturnIcon color="primary" />
+                        <ExitToAppIcon color="primary" />
                     </MyButton>
                     <EditDetails />
                 </div>

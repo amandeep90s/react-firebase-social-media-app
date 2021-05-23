@@ -15,7 +15,7 @@ import {
     makeStyles,
 } from "@material-ui/core";
 // Icons
-import EditIcon from "@material-ui/icons/Edit";
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 
 const useStyles = makeStyles({ ...themeObject, button: { float: "right" } });
 
@@ -70,7 +70,7 @@ const EditDetails = () => {
                 onClick={handleOpen}
                 btnClassName={classes.button}
             >
-                <EditIcon color="primary" />
+                <PersonOutlineIcon color="primary" />
             </MyButton>
 
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
