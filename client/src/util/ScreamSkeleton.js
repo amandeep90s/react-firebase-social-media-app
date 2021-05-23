@@ -49,7 +49,11 @@ const ScreamSkeleton = () => {
 
     const content = Array.from({ length: 5 }).map((_, index) => (
         <Card className={classes.card} key={index}>
-            <CardMedia className={classes.cover} image={NoImg} />
+            <CardMedia
+                className={classes.cover}
+                image={NoImg}
+                title="User Profile"
+            />
             <CardContent className={classes.cardContent}>
                 <div className={classes.handle} />
                 <div className={classes.date} />

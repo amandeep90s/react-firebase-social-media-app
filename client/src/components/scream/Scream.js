@@ -41,15 +41,22 @@ const Scream = (props) => {
     const {
         user: {
             authenticated,
-            credentials: { handle, imageUrl },
+            credentials: { handle },
         },
     } = useSelector((state) => ({ ...state }));
 
     dayjs.extend(relativeTime);
 
     const classes = useStyles();
-    const { body, commentCount, createdAt, likeCount, screamId, userHandle } =
-        props.scream;
+    const {
+        body,
+        commentCount,
+        createdAt,
+        likeCount,
+        screamId,
+        userHandle,
+        userImage,
+    } = props.scream;
 
     const deleteButton =
         authenticated && userHandle === handle ? (
@@ -60,7 +67,7 @@ const Scream = (props) => {
         <Card className={classes.card}>
             <CardMedia
                 className={classes.image}
-                image={imageUrl}
+                image={userImage}
                 title="User Profile"
             />
             <CardContent className={classes.content}>

@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import MyButton from "../../util/MyButton";
-
+import CreateScream from "../scream/CreateScream";
+import Notifications from "./Notifications";
 // MUI Stuff
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 
@@ -19,11 +20,13 @@ const Navbar = () => {
             <Toolbar className="nav-container">
                 {authenticated ? (
                     <>
+                        <CreateScream />
                         <Link to="/">
                             <MyButton tip="Home">
                                 <HomeIcon />
                             </MyButton>
                         </Link>
+                        <Notifications />
                     </>
                 ) : (
                     <>
