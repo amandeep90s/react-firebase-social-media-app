@@ -1,33 +1,31 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getScreams } from "../redux/actions/dataActions";
 import { Grid } from "@material-ui/core";
-
+// Util
+import ScreamSkeleton from "../util/ScreamSkeleton";
 // Component
 import Scream from "../components/scream/Scream";
 import Profile from "../components/profile/Profile";
 
 const Home = () => {
-    const [screams, setScreams] = useState([]);
+    const {
+        data: { screams, loading },
+    } = useSelector((state) => ({ ...state }));
 
-    const recentScreamsMarkup =
-        screams.length > 0 ? (
-            screams.map((scream) => (
-                <Scream scream={scream} key={scream.screamId} />
-            ))
-        ) : (
-            <p>Loading...</p>
-        );
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        axios
-            .get("/screams")
-            .then((res) => {
-                setScreams(res.data);
-            })
-            .catch((error) => console.log(error));
-
-        return () => setScreams([]);
+        dispatch(getScreams());
     }, []);
+
+    const recentScreamsMarkup = !loading ? (
+        screams.map((scream) => (
+            <Scream scream={scream} key={scream.screamId} />
+        ))
+    ) : (
+        <ScreamSkeleton />
+    );
 
     return (
         <Grid container spacing={2}>
