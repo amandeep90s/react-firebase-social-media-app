@@ -17,7 +17,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getScreams());
-    }, []);
+    }, [dispatch]);
 
     const recentScreamsMarkup = !loading ? (
         screams.map((scream) => (

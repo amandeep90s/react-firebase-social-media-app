@@ -75,7 +75,7 @@ export const likeScream = (screamId) => (dispatch) => {
                 payload: res.data,
             });
         })
-        .catch((error) => console.log(error));
+        .catch((err) => console.log(err));
 };
 
 // Unlike a scream function
@@ -88,7 +88,7 @@ export const unlikeScream = (screamId) => (dispatch) => {
                 payload: res.data,
             });
         })
-        .catch((error) => console.log(error));
+        .catch((err) => console.log(err));
 };
 
 // Create a comment on scream function

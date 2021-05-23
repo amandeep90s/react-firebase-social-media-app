@@ -3,20 +3,23 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
+import DeleteScream from "./DeleteScream";
+import LikeButton from "./LikeButton";
+import ScreamDialog from "./ScreamDialog";
+import MyButton from "../../util/MyButton";
 
+// Redux
+import { useSelector } from "react-redux";
 // MUI Stuff
 import {
-    // Button,
     Card,
-    // CardActionArea,
-    // CardActions,
     CardContent,
     CardMedia,
     Typography,
     makeStyles,
 } from "@material-ui/core";
 // Icons
-// import CommentIcon from "@material-ui/icons/Comment";
+import CommentIcon from "@material-ui/icons/Comment";
 
 // Custom Style
 const useStyles = makeStyles({
@@ -35,18 +38,30 @@ const useStyles = makeStyles({
 });
 
 const Scream = (props) => {
+    const {
+        user: {
+            authenticated,
+            credentials: { handle },
+        },
+    } = useSelector((state) => ({ ...state }));
+
     dayjs.extend(relativeTime);
 
     const classes = useStyles();
     const {
         body,
-        // commentCount,
+        commentCount,
         createdAt,
-        // likeCount,
-        // screamId,
+        likeCount,
+        screamId,
         userHandle,
         userImage,
     } = props.scream;
+
+    const deleteButton =
+        authenticated && userHandle === handle ? (
+            <DeleteScream screamId={screamId} />
+        ) : null;
 
     return (
         <Card className={classes.card}>
@@ -65,12 +80,24 @@ const Scream = (props) => {
                 >
                     {userHandle}
                 </Typography>
-                <Typography variant="body1" color="textSecondary" component="p">
+                {deleteButton}
+                <Typography variant="body2" color="textSecondary" component="p">
                     {dayjs(createdAt).fromNow()}
                 </Typography>
-                <Typography variant="body1" color="textSecondary" component="p">
+                <Typography variant="body1" component="p">
                     {body}
                 </Typography>
+                <LikeButton screamId={screamId} />
+                <span>{likeCount}</span> Likes
+                <MyButton tip="comments">
+                    <CommentIcon color="primary" />
+                </MyButton>
+                <span>{commentCount} Comments</span>
+                <ScreamDialog
+                    screamId={screamId}
+                    userHandle={userHandle}
+                    openDialog={false}
+                />
             </CardContent>
         </Card>
     );
