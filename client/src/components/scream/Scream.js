@@ -93,11 +93,7 @@ const Scream = (props) => {
                     <CommentIcon color="primary" />
                 </MyButton>
                 <span>{commentCount} Comments</span>
-                <ScreamDialog
-                    screamId={screamId}
-                    userHandle={userHandle}
-                    openDialog={false}
-                />
+                <ScreamDialog screamId={screamId} userHandle={userHandle} />
             </CardContent>
         </Card>
     );
