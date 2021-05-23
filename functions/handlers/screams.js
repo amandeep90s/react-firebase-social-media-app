@@ -33,6 +33,9 @@ exports.getAllScreams = (req, res) => {
  * Create a scream function
  */
 exports.createScream = (req, res) => {
+    if (req.body.body.trim() === "")
+        return res.status(400).json({ body: "Must not be empty" });
+
     const newScream = {
         body: req.body.body,
         userHandle: req.user.handle,
