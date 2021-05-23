@@ -46,10 +46,10 @@ export const dataReducer = (state = initialState, action) => {
                 ...state,
             };
         case DELETE_SCREAM:
-            index = state.screams.findIndex(
+            let screamsIndex = state.screams.findIndex(
                 (scream) => scream.screamId === action.payload
             );
-            state.screams.splice(index, 1);
+            state.screams.splice(screamsIndex, 1);
             return {
                 ...state,
             };

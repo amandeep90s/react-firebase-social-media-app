@@ -20,9 +20,15 @@ const Home = () => {
     }, [dispatch]);
 
     const recentScreamsMarkup = !loading ? (
-        screams.map((scream) => (
-            <Scream scream={scream} key={scream.screamId} />
-        ))
+        screams.length > 0 ? (
+            screams.map((scream) => (
+                <Scream scream={scream} key={scream.screamId} />
+            ))
+        ) : (
+            <h2 style={{ marginTop: "2rem", textAlign: "center" }}>
+                No Screams Found
+            </h2>
+        )
     ) : (
         <ScreamSkeleton />
     );

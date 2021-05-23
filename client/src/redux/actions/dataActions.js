@@ -113,11 +113,13 @@ export const createComment = (screamId, commentData) => (dispatch) => {
 export const deleteScream = (screamId) => (dispatch) => {
     axios
         .delete(`/scream/${screamId}`)
-        .then(() => {
-            dispatch({
-                type: DELETE_SCREAM,
-                payload: screamId,
-            });
+        .then((res) => {
+            if (res.status === 200) {
+                dispatch({
+                    type: DELETE_SCREAM,
+                    payload: screamId,
+                });
+            }
         })
         .catch((err) => console.log(err));
 };
