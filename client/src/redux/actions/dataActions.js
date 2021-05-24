@@ -100,6 +100,7 @@ export const createComment = (screamId, commentData) => (dispatch) => {
                 type: CREATE_COMMENT,
                 payload: res.data,
             });
+            dispatch(clearErrors());
         })
         .catch((error) => {
             dispatch({

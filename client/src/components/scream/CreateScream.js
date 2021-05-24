@@ -60,8 +60,6 @@ const CreateScream = () => {
         event.preventDefault();
         dispatch(createScream({ body }));
 
-        console.log("errors", errors.length, "loading", loading);
-
         if (Object.keys(errors).length && !loading) {
             setOpen(false);
             setBody("");
