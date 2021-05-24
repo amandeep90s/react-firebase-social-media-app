@@ -14,19 +14,21 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 // Redux
 import { useDispatch } from "react-redux";
 import { deleteScream } from "../../redux/actions/dataActions";
+// Custom style
+const useStyles = makeStyles({
+    deleteButton: {
+        position: "absolute",
+        right: "4%",
+        top: "10%",
+    },
+});
 
 const DeleteScream = ({ screamId }) => {
     const dispatch = useDispatch();
 
     const [open, setOpen] = useState(false);
 
-    const classes = makeStyles({
-        deleteButton: {
-            position: "absolute",
-            left: "90%",
-            top: "10%",
-        },
-    });
+    const classes = useStyles();
 
     const handleOpen = () => {
         setOpen(true);
@@ -48,7 +50,7 @@ const DeleteScream = ({ screamId }) => {
                 onClick={handleOpen}
                 btnClassName={classes.deleteButton}
             >
-                <DeleteOutlineIcon color="primary" />
+                <DeleteOutlineIcon color="secondary" />
             </MyButton>
 
             <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
