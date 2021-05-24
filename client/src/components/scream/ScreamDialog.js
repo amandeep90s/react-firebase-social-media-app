@@ -95,7 +95,7 @@ const ScreamDialog = ({ screamId, userHandle }) => {
 
     const dialogMarkup = loading ? (
         <div className={classes.spinnerDiv}>
-            <CircularProgress size={200} thickness={2} />
+            <CircularProgress size={50} thickness={2} />
         </div>
     ) : (
         <Grid container spacing={2}>

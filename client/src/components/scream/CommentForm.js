@@ -73,3 +73,7 @@ const CommentForm = ({ screamId }) => {
 };
 
 export default CommentForm;
+
+CommentForm.propTypes = {
+    screamId: PropTypes.string.isRequired,
+};
