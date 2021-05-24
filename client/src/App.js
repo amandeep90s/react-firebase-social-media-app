@@ -25,8 +25,8 @@ const Signup = lazy(() => import("./pages/Signup"));
 const User = lazy(() => import("./pages/User"));
 
 // Set base url
-axios.defaults.baseURL =
-    "https://asia-south1-react-social-ape-70daa.cloudfunctions.net/api";
+// axios.defaults.baseURL =
+//     "https://asia-south1-react-social-ape-70daa.cloudfunctions.net/api";
 
 // Auth Token
 const token = localStorage.getItem("FBIdToken");
