@@ -68,7 +68,6 @@ const ScreamDialog = ({ screamId, userHandle }) => {
     } = useSelector((state) => ({ ...state }));
 
     const [oldPath, setOldPath] = useState("");
-    const [newPath, setNewPath] = useState("");
     const [open, setOpen] = useState(false);
 
     const classes = useStyles();
@@ -83,7 +82,6 @@ const ScreamDialog = ({ screamId, userHandle }) => {
 
         setOpen(true);
         setOldPath(oldPathName);
-        setNewPath(newPathName);
         dispatch(getScream(screamId));
     };
 
@@ -130,7 +128,7 @@ const ScreamDialog = ({ screamId, userHandle }) => {
             </Grid>
             <hr className={classes.visibleSeparator} />
             <CommentForm screamId={screamId} />
-            <Comments comments={comments} />
+            <Comments comments={comments || []} />
         </Grid>
     );
 
