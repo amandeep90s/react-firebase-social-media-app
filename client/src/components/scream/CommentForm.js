@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import themeObject from "../../util/theme";
 // Redux
@@ -18,20 +18,27 @@ const CommentForm = ({ screamId }) => {
     const dispatch = useDispatch();
     const {
         user: { authenticated },
-        UI: { errors, loading },
+        UI,
     } = useSelector((state) => ({ ...state }));
 
     const [body, setBody] = useState("");
+    const [errors, setErrors] = useState("");
+
+    useEffect(() => {
+        if (UI.errors) {
+            setErrors(UI.errors);
+        }
+
+        if (!Object.keys(UI.errors).length && !UI.loading) {
+            setBody("");
+        }
+    }, [UI.errors, UI.loading]);
 
     const classes = makeStyles(themeObject);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(createComment(screamId, { body }));
-
-        if (Object.keys(errors).length === 0 && !loading) {
-            setBody("");
-        }
     };
 
     const commentFormMarkup = authenticated ? (
@@ -54,11 +61,11 @@ const CommentForm = ({ screamId }) => {
                     variant="contained"
                     color="primary"
                     className={classes.button}
-                    disabled={loading}
+                    disabled={UI.loading}
                     style={{ margin: "1rem 0" }}
                 >
                     Submit
-                    {loading && (
+                    {UI.loading && (
                         <CircularProgress
                             size={30}
                             className={classes.progressSpinner}

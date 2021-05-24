@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import themeObject from "../../util/theme";
 import MyButton from "../../util/MyButton";
 // Redux
@@ -38,14 +38,24 @@ const useStyles = makeStyles({
 
 const CreateScream = () => {
     const dispatch = useDispatch();
-    const {
-        UI: { errors, loading },
-    } = useSelector((state) => ({ ...state }));
+    const { UI } = useSelector((state) => ({ ...state }));
 
     const [body, setBody] = useState("");
+    const [errors, setErrors] = useState("");
     const [open, setOpen] = useState(false);
 
     const classes = useStyles();
+
+    useEffect(() => {
+        if (UI.errors) {
+            setErrors(UI.errors);
+        }
+
+        if (!Object.keys(UI.errors).length && !UI.loading) {
+            setBody("");
+            setOpen(false);
+        }
+    }, [UI.errors, UI.loading]);
 
     const handleOpen = () => {
         setOpen(true);
@@ -59,11 +69,6 @@ const CreateScream = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(createScream({ body }));
-
-        if (Object.keys(errors).length && !loading) {
-            setOpen(false);
-            setBody("");
-        }
     };
 
     return (
@@ -102,10 +107,10 @@ const CreateScream = () => {
                             variant="contained"
                             color="primary"
                             className={classes.submitButton}
-                            disabled={loading}
+                            disabled={UI.loading}
                         >
                             Submit
-                            {loading && (
+                            {UI.loading && (
                                 <CircularProgress
                                     size={30}
                                     className={classes.progressSpinner}

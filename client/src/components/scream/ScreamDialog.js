@@ -38,7 +38,8 @@ const useStyles = makeStyles({
     },
     closeButton: {
         position: "absolute",
-        left: "90%",
+        right: "2%",
+        top: "2%",
     },
     expandButton: {
         position: "absolute",
@@ -68,7 +69,6 @@ const ScreamDialog = ({ screamId, userHandle }) => {
     } = useSelector((state) => ({ ...state }));
 
     const [oldPath, setOldPath] = useState("");
-    const [newPath, setNewPath] = useState("");
     const [open, setOpen] = useState(false);
 
     const classes = useStyles();
@@ -83,7 +83,6 @@ const ScreamDialog = ({ screamId, userHandle }) => {
 
         setOpen(true);
         setOldPath(oldPathName);
-        setNewPath(newPathName);
         dispatch(getScream(screamId));
     };
 
